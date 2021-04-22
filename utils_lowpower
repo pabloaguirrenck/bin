@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/utils_lowpower
+# Pablo Aguirre Núñez
+#============================================================
+#------------------------------------------------------------
+# Display notification when low power and discharging (below 10% remaining)
+#------------------------------------------------------------
+
+# Define display battery information
+batinfo=$(acpi -b | grep 'Battery 0')
+
+# Define get percentage as clean number
+perc=$(echo $batinfo | awk '{printf $4}' | tr -d %,)
+
+# Check if below 15%, and status = Discharging, for Battery Low notification
+if [[ `echo $batinfo | grep Discharging` && `echo $perc` -lt 15 ]]; then
+	notify-send "WARNING: Battery Low" "$batinfo"
+# Check if below 5%, and status = Discharging, for Battery Low notification
+elif [[ `echo $batinfo | grep Discharging` && `echo $perc` -lt 5 ]]; then
+	notify-send "WARNING: Battery Critical" "$batinfo"
+fi

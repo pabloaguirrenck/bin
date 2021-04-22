@@ -1,0 +1,26 @@
+#!/bin/sh 
+
+#============================================================
+# ~/bin/utils_wlan
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Display wlan signal strength for current network
+#------------------------------------------------------------
+
+# I.  Signal percentage
+
+#signal="$(nmcli dev show wlp3s0 | grep "GENERAL.STATE" | awk '{print $2}')"
+#
+## Return signal variable to stdout
+#echo "$signal"
+
+# II. Signal percentage alternate method
+
+# Define variables
+real=$(iwconfig wlp3s0 | grep "Link Quality" | awk -F= '{print $2}' | awk '{print$1}' | awk -F/ '{print$1}')
+#iwconfig wlp3s0 | grep "Link Quality" | awk -F= '{print $2}' | awk '{print$1}' | awk -F/ '{print$2}'
+level=$(iwconfig wlp3s0 | grep "Link Quality" | awk -F= '{print $2}' | awk '{print$1}' | awk -F/ '{print$2}')
+
+echo $real/$level

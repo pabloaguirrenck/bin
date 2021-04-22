@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_calcurse
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open new calcurse window loading custom dir for config and data files
+#------------------------------------------------------------
+
+$TERMINAL -e calcurse -D /home/pabloagnck/.config/calcurse -C /home/pabloagnck/.config/calcurse

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_plex
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Stop servers
+#------------------------------------------------------------
+echo "-----Kill Roon Services-----"
+echo "Killing Roon"
+sleep 1s
+sudo systemctl stop roonbridge.service
+sudo systemctl stop roonserver.service
+echo "Done...Roon Inactive"
+
+# Set vim filetype
+# vim: set ft=sh:

@@ -1,0 +1,58 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_displaystats
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# References
+# https://gist.github.com/todgru/6224848
+#------------------------------------------------------------
+
+#------------------------------------------------------------
+# Open stats on new tmux session (neofetch, htop, glances)
+#------------------------------------------------------------
+# Declare session name as variable
+SESS="stat"
+
+# Check weather SESS exists
+tmux has-session -t $SESS 2>/dev/null
+
+# If session does not exist, create session
+if [ $? == 0 ] ; then
+	tmux kill-session -t $SESS
+
+# Elif session does not exist, create it
+elif [ $? != 0 ] ; then
+	# set up tmux
+	tmux start-server
+
+	# create a new tmux session
+	tmux new-session -d -s $SESS
+
+	# Select pane 1
+	tmux selectp -t 1
+	tmux send-keys "neofetch" C-m
+
+	# Split pane 1 horizontal by 50%, start htop
+	tmux splitw -h -p 70
+	tmux send-keys "htop" C-m
+
+	# Select pane 2
+	tmux selectp -t 2
+
+	# Split pane 2 vertically by 50%
+	tmux splitw -f -v -p 50
+
+	tmux selectp -t 3
+	tmux send-keys "ytop" C-m
+
+	tmux selectp -t 1
+
+	# Open new st shell, assign class, attach SESS
+	$TERMINAL -c stats -e tmux attach-session -t $SESS
+fi
+
+# Set vim filetype
+# vim: set ft=sh:

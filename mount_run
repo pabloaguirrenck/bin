@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/mount_media
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Mount Devices
+#------------------------------------------------------------
+echo "Mounting devices..."
+sudo mount -U 917e5a5f-caeb-429b-889a-e218ad4579d4 /run/media/pabloagnck/WD8TI
+sleep 1s
+sudo mount -U 8cfa6b57-3ca8-4e55-baae-e6cf6f65d54d /run/media/pabloagnck/SG8TI
+sleep 1s
+
+lsblk -f
+sleep 1s
+echo "Devices Mounted..."
+
+# Set vim filetype
+# vim: set ft=sh:

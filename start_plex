@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_plex
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Unmount WD, and remount by UUID on /media/pabloagnck/WD
+#------------------------------------------------------------
+echo "-----Init Plex Server-----"
+echo "Unmounting devices..."
+sudo umount /run/media/pabloagnck/WD8TI
+sleep 1s
+sudo umount /run/media/pabloagnck/SG8TI
+sleep 1s
+
+echo "Mounting devices..."
+sudo mount -U 917e5a5f-caeb-429b-889a-e218ad4579d4 /media/pabloagnck/WD8TI
+sleep 1s
+sudo mount -U 8cfa6b57-3ca8-4e55-baae-e6cf6f65d54d /media/pabloagnck/SG8TI
+sleep 1s
+
+#------------------------------------------------------------
+# Mount Metadata & Media
+#------------------------------------------------------------
+echo "Mounting Metadata"
+sudo mount --bind /media/pabloagnck/SG8TI/Metadata/Plex\ Media\ Server /var/lib/plex/Plex\ Media\ Server
+sleep 5s
+#------------------------------------------------------------
+# Init plex server
+#------------------------------------------------------------
+echo "Initializing Plex...have fun"
+sudo systemctl start plexmediaserver.service
+
+# Set vim filetype
+# vim: set ft=sh:

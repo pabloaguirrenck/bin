@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Renamer script, for bulk changing folder's names
+
+find . -depth -type d -name "Featurettes" -execdir mv {} Extras \;

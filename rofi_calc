@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_calc
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open rofi calc menu
+#------------------------------------------------------------
+rofi -show calc -modi calc -no-show-match -no-sort -terse -theme ~/.config/rofi/themes/general_thin.rasi
+
+# Set vim filetype
+# vim: set ft=sh:

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/utils_kill
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Kills processes without crashing bspwm
+#------------------------------------------------------------
+# Define process name as variable
+prog="compton"
+
+# Look for active process
+pgrep $prog 2>/dev/null
+
+# If process is active, kill process, else, display error message
+if [ $? == 0 ] ; then
+	killall $prog
+	notify-send "Compton Killed" -t 3000
+else
+	notify-send "Compton not running" -t 3000
+fi
+
+# Set vim filetype
+# vim: set ft=sh:

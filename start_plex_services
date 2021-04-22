@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_plex
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Stop servers
+#------------------------------------------------------------
+echo "-----Init Plex Services-----"
+echo "Initializing Plex"
+sleep 1s
+sudo systemctl start plexmediaserver.service
+echo "Done...Roon Inactive"
+
+# Set vim filetype
+# vim: set ft=sh:

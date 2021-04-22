@@ -1,0 +1,18 @@
+#!/bin/sh
+
+source bkp_apikeys
+
+cat $handle_source | while read line
+do
+	word=$(echo $line | awk -F"(" '{print $1}' | sed -e "s/ /+/g" | sed 's/.$//')
+	year=$(echo $line | awk -F"(" '{print $2}' | sed 's/.$//')
+	url="https://api.themoviedb.org/3/search/movie?api_key=$apikey&query=$word"
+	curl -s $url | jq -r --arg year "$year" '.results[] | select(.release_date | contains($year)) | .title, .release_date, .id'
+	echo " "
+done
+
+
+#curl "https://api.themoviedb.org/3/movie/343611?api_key=2f0db58a1b6ccae3d0f45b302d1078f4&append_to_response=credits" | jq -r '.'
+#url="https://api.themoviedb.org/3/search/movie?api_key=2f0db58a1b6ccae3d0f45b302d1078f4&query=A+Nightmare+on+Elm+Street+2+Freddy's+Revenge"
+#curl $url | jq -r '.results[] | select(.release_date | contains("1985"))'
+#ffprobe -v quiet -print_format json -show_format -show_streams The\ Andrei\ Tarkovsky\ Retrospective.mkv

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_neomutt
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open neomutt with path to config file
+#------------------------------------------------------------
+$TERMINAL -e "neomutt -F ~/.config/neomutt/neomuttrc"
+
+# Set vim filetype
+# vim: set ft=sh:

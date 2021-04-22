@@ -1,0 +1,30 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_docs
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open rofi docs menu
+#------------------------------------------------------------
+# options to be displayed
+option0=" New Libre Document"
+option1=" New Libre Sheet"
+option2=" New Libre Slide"
+
+# Options passed into variable
+options="$option0\n$option1\n$option2"
+
+chosen="$(echo -e "$options" | rofi -fixed-num-lines -theme ~/.config/rofi/themes/general_thick.rasi -lines 3 -dmenu -p Docs -i)"
+case $chosen in
+    $option0)
+        libreoffice --writer;;
+    $option1)
+        libreoffice --calc;;
+    $option2)
+        libreoffice --impress;;
+esac
+
+# Set vim filetype
+# vim: set ft=sh:

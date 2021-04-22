@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/utils_colorslave
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Export .Xresources colors as specified format
+# RGB, HEX, HEX 3 digits, Name
+#------------------------------------------------------------
+
+# Query .Xresources colors
+colors="$(xrdb -query | grep "color" | awk '{print $2}')"
+
+# Convert hexadecimal color to CSS (3 digit)
+# Extract substring
+c=0
+for i in $colors; do
+	# Zeroth offset, one offset, three offsets, five offsets.
+	# First char, second char, fourth char, sixth char
+	css="${i:0:1}${i:1:1}${i:3:1}${i:5:1}"
+	eval "csscolor$c=$css"
+	((c+=1))
+done
+echo $csscolor0

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_torrent_session
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Start transmission-cli (daemon) plus Stig frontend (For use with sxhkd)
+#------------------------------------------------------------
+
+# Transmission-daemon sometimes fails to take remote requests in its first moments.
+# Init transmission daemon (transmission-cli) before adding torrent.
+pgrep -x transmission-da >/dev/null || (transmission-daemon && notify-send "Started Transmission Daemon" && sleep 2)
+
+# Init stig.
+$TERMINAL -e stig

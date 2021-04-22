@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# I. Get movie IDs and output to text file
+apikey="2f0db58a1b6ccae3d0f45b302d1078f4"
+handle_source="/home/pabloagnck/documents/media.bak/movies_collection/title_year.txt"

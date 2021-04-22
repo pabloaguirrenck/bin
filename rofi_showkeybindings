@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_showkeybindings
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open new termite window displaying all sxhkd shortcuts
+#------------------------------------------------------------
+session="stat"
+cat ~/.config/sxhkd/sxhkdrc | awk '/^[a-z;A-Z]/ && last {print $0,"\t",last} {last=""} /^#/{last=$0}' | column -t -s $'\t' | rofi -dmenu -p "Keybindings" -theme ~/.config/rofi/themes/general_thin.rasi -lines 30 -width 70 -i
+
+# Set vim filetype
+# vim: set ft=sh:

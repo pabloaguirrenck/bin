@@ -1,0 +1,30 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_scripts/rofi_configmenu
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open rofi config menu
+#------------------------------------------------------------
+# Asign file as variable
+target=/home/pabloagnck/.config/.configmenu
+
+# Clean output
+array="$(awk '{$1=$1}1' $target | sort | awk -F ',' {'printf("%-30s %-20s %-20s %-20s \n", $1, $2, $3, $4)'})" 
+
+# Start rofi
+chosen="$(echo -e "$array" | rofi -theme ~/.config/rofi/themes/general_thick.rasi -width 70 -lines 20 -dmenu -p "Configuration File Editor" -i -fixed-num-lines true)"
+
+# Path as variable (choose last column on set)
+pth="$(echo $chosen | awk '{ print $NF }')"
+
+# Open config file on EDITOR if chosen is selected, else, exit
+if [ -n "$pth" ];
+then
+	$TERMINAL -e $EDITOR $pth
+fi
+
+# Set vim filetype
+# vim: set ft=sh:

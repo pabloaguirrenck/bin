@@ -1,0 +1,52 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_powermenu
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open rofi power menu
+#------------------------------------------------------------
+# Options to be displayed
+option0=" Start Media Server"
+option1=" Stop Media Server"
+option2=" Start Roon"
+option3=" Stop Roon"
+option4=" Start Plex"
+option5=" Stop Plex"
+option6=" Start Roon Services"
+option7=" Kill Roon Services"
+option8=" Start Plex Services"
+option9=" Kill Plex Services"
+
+# Options passed into variable
+options="$option0\n$option1\n$option2\n$option3\n$option4\n$option5\n$option6\n$option7\n$option8\n$option9"
+
+# Note: -i will disable case sensitivity (will toggle)
+chosen="$(echo -e "$options" | rofi -theme ~/.config/rofi/themes/general_thick.rasi -lines 8 -dmenu -p "Media Menu" -i)"
+case $chosen in
+    $option0)
+        /home/pabloagnck/bin/start_music;;
+    $option1)
+        /home/pabloagnck/bin/kill_music;;
+    $option2)
+        /home/pabloagnck/bin/start_roon;;
+    $option3)
+        /home/pabloagnck/bin/kill_roon;;
+    $option4)
+        /home/pabloagnck/bin/start_plex;;
+    $option5)
+        /home/pabloagnck/bin/kill_plex;;
+    $option6)
+        /home/pabloagnck/bin/start_roon_services;;
+    $option7)
+        /home/pabloagnck/bin/kill_roon_services;;
+    $option8)
+        /home/pabloagnck/bin/start_plex_services;;
+    $option9)
+        /home/pabloagnck/bin/kill_plex_services;;
+esac
+
+# Set vim filetype
+# vim: set ft=sh:

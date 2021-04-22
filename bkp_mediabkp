@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# This script serves as a media metadata backup generator
+# Included: Movies, TV Shows, Books, Videos
+
+# Specify media directories as variables
+mediadir="/media/pabloagnck/WD8TI/Media"
+moviesdir="$mediadir/Movies Collection"
+tvshowsdir="$mediadir/Series Collection"
+videosdir="$mediadir/Videos Collection"
+
+# Specify backup directories (loc = documents/media.bkp, ext = mediadir/Metadata/media.bkp
+bkpdirloc="/home/pabloagnck/documents/media.bak"
+bkpdirext="/media/pabloagnck/WD8TI/Media/Metadata/media.bak"
+
+#------------------------------------------------------------
+# Movies Collection
+#------------------------------------------------------------
+
+# List all folders and create backup on both backup dirs
+# I. title_year: Movie Title (Year)
+ls "$moviesdir" | tee $bkpdirloc/movies_collection/title_year.txt $bkpdirext/movies_collection/title_year.txt > /dev/null
+
+# II. stats
+ls "$moviesdir" | wc -l | xargs echo "Number of films:   " | tee $bkpdirloc/movies_collection/stats.txt $bkpdirext/movies_collection/stats > /dev/null
+du -hs "$moviesdir" | awk -F"T" '{print $1}' | xargs echo "Total size (T):    "| tee -a $bkpdirloc/movies_collection/stats.txt $bkpdirext/movies_collection/stats > /dev/null
+
+
+
+
+
+
+
+
+
+
+
+
+

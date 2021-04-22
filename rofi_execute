@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_execute
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open rofi execute apps menu
+#------------------------------------------------------------
+rofi -show run -theme ~/.config/rofi/themes/general_thick.rasi -i
+
+# Set vim filetype
+# vim: set ft=sh:

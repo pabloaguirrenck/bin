@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_tmux
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Start new tmux session
+#------------------------------------------------------------
+session="new"
+
+# set up tmux
+tmux start-server
+
+# create a new tmux session
+tmux new-session -d -s $session
+
+$TERMINAL -e "tmux attach-session -t $session"
+
+# Set vim filetype
+# vim: set ft=sh:

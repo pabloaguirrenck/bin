@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_plex
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Unmount WD, and remount by UUID on /media/pabloagnck/WD
+#------------------------------------------------------------
+echo "-----Init Plex Server-----"
+echo "Unmounting devices..."
+sudo umount /run/media/pabloagnck/WD8TI
+sleep 1s
+sudo umount /run/media/pabloagnck/SG8TI
+sleep 1s
+
+echo "Done"
+
+lsblk -f
+# Set vim filetype
+# vim: set ft=sh:

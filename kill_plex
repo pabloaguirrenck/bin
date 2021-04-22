@@ -1,0 +1,52 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_plex
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Stop servers
+#------------------------------------------------------------
+echo "-----Kill Plex Server-----"
+echo "Killing Plex Server"
+sudo systemctl stop plexmediaserver.service
+sleep 1s
+echo "All Services Are Inactive"
+
+#------------------------------------------------------------
+# Verify status
+#------------------------------------------------------------
+echo "Verifying Plex status"
+sudo systemctl status plexmediaserver.service
+while true; do
+    read -p "Do you wish to continue?" yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+#------------------------------------------------------------
+# Unmount Metadata
+#------------------------------------------------------------
+echo "Unmounting Plex Metadata"
+sudo umount /var/lib/plex/Plex\ Media\ Server
+sleep 1s
+echo "Done"
+sleep 1s
+echo "Metadata Unmounted"
+
+#------------------------------------------------------------
+# Unmount Devices
+#------------------------------------------------------------
+echo "Unmounting Devices"
+sudo umount /media/pabloagnck/WD8TI
+sleep 1s
+sudo umount /media/pabloagnck/SG8TI
+sleep 1s
+echo "Done..."
+
+# Set vim filetype
+# vim: set ft=sh:

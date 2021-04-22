@@ -1,0 +1,123 @@
+#!/bin/sh
+
+# This script serves as a media metadata generator
+# Included: Movies, TV Shows, Books, Videos
+
+# Get api keys and variables
+source bkp_apikeys
+
+# I. Get moviedbID from file
+id=343611
+
+# II. Get movie and define variables for api information query
+sheet=$(curl -s "https://api.themoviedb.org/3/movie/$id?api_key=$apikey&append_to_response=credits")
+
+# General information
+release_date=( "$(echo $sheet | jq -r '.release_date')" )
+director=( "$(echo $sheet | jq -r '.credits.crew[] | select(.job | . == ("Director")) | .name')" )
+writers=( "$(echo $sheet | jq -r '[.credits.crew[] | select(.department | . == ("Writing")) | .name] | join(", ")')" ) 
+production_companies=( "$(echo $sheet | jq -r '[.production_companies[].name] | join(", ")')" )
+themoviedb_production_company_id=( "$(echo $sheet | jq -r '[.production_companies[].id] | join(", ")')" )
+production_countries_iso3166_1=( "$(echo $sheet | jq -r '[.production_countries[].iso_3166_1] | join (", ")')" )
+production_countries_name=( "$(echo $sheet | jq -r '[.production_countries[].name] | join(", ")')" )
+genre=( "$(echo $sheet | jq -r '[.genres[].name] | join(", ")')" )
+themoviedb_genre_id=( "$(echo $sheet | jq -r '[.genres[].id] | join(", ")')" )
+overview=( "$(echo $sheet | jq -r '.overview')" )
+tagline=( "$(echo $sheet | jq -r '.tagline')" )
+homepage=( "$(echo $sheet | jq -r '.homepage')" )
+budget=( "$(echo $sheet | jq -r '.budget')" )
+revenue=( "$(echo $sheet | jq -r '.revenue')" )
+original_language=( "$(echo $sheet | jq -r '.original_language')" )
+original_title=( "$(echo $sheet | jq -r '.original_title')" )
+official_runtime=( "$(echo $sheet | jq -r '.runtime')" )
+adult=( "$(echo $sheet | jq -r '.adult')" )
+
+# Cast Information
+cast_name=( "$(echo $sheet | jq -r '[.credits.cast[0:10][] | .name] | join(", ")')" )
+cast_character=( "$(echo $sheet | jq -r '[.credits.cast[0:10][] | .character] | join(", ")')" )
+cast_gender=( "$(echo $sheet | jq -r '[.credits.cast[0:10][] | .gender] | join(", ")')" )
+cast_order=( "$(echo $sheet | jq -r '[.credits.cast[0:10][] | .order] | join(", ")')" )
+themoviedb_cast_id=( "$(echo $sheet | jq -r '[.credits.cast[0:10][] | .cast_id] | join(", ")')" )
+themoviedb_id=( "$(echo $sheet | jq -r '[.credits.cast[0:10][] | .id] | join(", ")')" )
+
+# Crew Information
+crew_name=
+crew_department=
+crew_gender=
+crew_job=
+themoviedb_crew_id=
+
+# Rating information
+tomatometer=
+imdb_rating=
+imdb_votes=
+themoviedb_popularity=
+
+# Id Information
+themoviedb_id=
+imdb_id=
+belongs_to_collection=
+collection_name=
+themoviedb_collection_id=
+
+
+# III. Define variables for probe information query
+
+
+
+
+
+
+
+
+# IV. Concatenate data and declare arrays
+data_array=("$release_date" "$director" "$writers" "$production_companies" "$themoviedb_production_company_id" \
+	"$production_countries_iso3166_1" "$production_countries_name" "$genre" "$themoviedb_genre_id"\
+	"$tagline" "$homepage" "$budget" "$revenue" "$original_language" "$original_title" "$official_runtime" "$adult")
+
+tag_array=("RELEASE DATE" "DIRECTOR" "WRITERS" "PRODUCTION COMPANIES" "THEMOVIEDB PRODUCTION COMPANY ID"\
+	"PRODUCTION COUNTRIES ISO_3166_1" "PRODUCTION COUNTRIES NAME" "GENRE" "THEMOVIEDB GENRE ID" "TAGLINE" "HOMEPAGE"\
+	"BUDGET" "REVENUE" "ORIGINAL LANGUAGE" "ORIGINAL TITLE" "OFFICIAL RUNTIME" "ADULT CONTENT")
+
+# V. Print retrieved values w/ padding
+printf '%s\n\n' "MOVIE METADATA FILE"
+
+pad=$(printf '%0.1s' "."{1..60})
+padlength=40
+counter=0
+for string1 in "${tag_array[@]}"
+do
+	string2=": ${data_array[counter]}"
+	printf '%s' "$string1"
+     	printf '%*.*s' 0 $((padlength - ${#string1} )) "$pad"
+     	printf '%s\n' "$string2"
+	((++counter))
+done
+
+# VI. Print overviews
+printf '\n%s' "OVERVIEW"
+printf '%*.*s' 0 $((padlength - 8 )) "$pad"
+printf '%s' ": " 
+overview="$(echo "$overview" | fmt -tw 90'')"
+printf '\n%s' "$overview"
+
+# VII. Print probe info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#curl $url | jq -r '.results[] | select(.release_date | contains("1985"))'
+#ffprobe -v quiet -print_format json -show_format -show_streams The\ Andrei\ Tarkovsky\ Retrospective.mkv

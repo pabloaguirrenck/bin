@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_lockscreen
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Start i3lock
+#------------------------------------------------------------
+# Color definition
+GREEN=#00ce99ff
+RED=#870603ff
+BLACK=#000000ff
+TRANSPARENT=#00000000
+PICTURE=/home/pabloagnck/pictures/digital_assets/Lockscreen.png
+
+i3lock -i $PICTURE --indpos="x+(w/2):500" --radius=180 --ring-width=4 --ringcolor=$TRANSPARENT --ringvercolor=$RED --insidecolor=$TRANSPARENT --keyhlcolor=$RED --bshlcolor=$RED --insidevercolor=$TRANSPARENT --linecolor=$TRANSPARENT --verifcolor=$TRANSPARENT --wrongcolor=$TRANSPARENT --insidewrongcolor=$TRANSPARENT --ringwrongcolor=$RED
+
+# Set vim filetype
+# vim: set ft=sh:

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_roon
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Unmount WD, and remount by UUID on /media/pabloagnck/WD
+#------------------------------------------------------------
+echo "-----Init Roon Server-----"
+echo "Unmounting devices..."
+sudo umount /run/media/pabloagnck/SG8TI
+sleep 1s
+
+echo "Mounting devices..."
+sudo mount -U 8cfa6b57-3ca8-4e55-baae-e6cf6f65d54d /media/pabloagnck/SG8TI
+sleep 1s
+
+#------------------------------------------------------------
+# Mount Metadata & Cache
+#------------------------------------------------------------
+echo "Mounting Metadata"
+sudo mount --bind /media/pabloagnck/SG8TI/Metadata/RoonServer /var/roon/RoonServer
+sleep 3s
+
+#------------------------------------------------------------
+# Init Roon Server & Roon Bridge
+#------------------------------------------------------------
+echo "Initializing Roon Server"
+sleep 2s
+sudo systemctl start roonserver.service
+echo "Roon Server Online"
+sleep 1s
+echo "Initializing Roon Bridge"
+sudo systemctl start roonbridge.service
+
+echo "Have fun..."
+
+# Set vim filetype
+# vim: set ft=sh:

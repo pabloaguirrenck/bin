@@ -1,0 +1,29 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/rofi_filesystem
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open rofi filesystem menu
+#------------------------------------------------------------
+d60G="$(df -h | awk '$6 == "/run/media/pabloagnck/60GB" {printf "%s\t%s\t%s\t%s\t%s", $2, $3, $4, $5, $6}')"
+d750G="$(df -h | awk '$6 == "/run/media/pabloagnck/750GB" {printf "%s\t%s\t%s\t%s\t%s", $2, $3, $4, $5, $6}')"
+d2T="$(df -h | awk '$6 == "/run/media/pabloagnck/2TB" {printf "%s\t%s\t%s\t%s\t%s", $2, $3, $4, $5, $6}')"
+d8T="$(df -h | awk '$6 == "/run/media/pabloagnck/WD8TI" {printf "%s\t%s\t%s\t%s\t%s", $2, $3, $4, $5, $6}')"
+array="$(printf '%s\n%s' "$d60G" "$d750G" "$d2T" "$d8T")"
+echo "$array"
+chosen="$(echo -e "$array" | rofi -theme ~/.config/rofi/themes/general_thick.rasi -lines 3 -dmenu -p Unmount Filesystem -i)"
+
+# Path as variable (choose last column on set)
+pth="$(echo $chosen | awk '{ print $NF }')"
+
+# Open unmount selected filesystem if selected, else, exit
+if [ -n "$pth" ];
+then
+	udiskie-umount $pth
+fi
+
+# Set vim filetype
+# vim: set ft=sh:

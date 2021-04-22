@@ -1,0 +1,39 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/utils_pastel
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Display colorpalette with 16 colors with pastel program.
+#------------------------------------------------------------
+
+# Define variables & handles
+names=$(xrdb -query | grep "color" | awk '{print $1}')
+colors="$(xrdb -query | grep "color" | awk '{print $2}' | tr -d "#")"
+name=($names)
+
+# Define bold and normal formatting.
+bold=$(tput bold)
+normal=$(tput sgr0)
+
+# Define counter
+count=0
+
+echo -e "\n${bold}Colorscheme: ${normal}" "HEY"
+echo "···································································································"
+for i in $colors; do
+	foreground="$(pastel textcolor "$i")"
+	rgb="$(pastel color "$i" | pastel format rgb)"
+	hex="$(pastel color "$i" | pastel format hex)"
+	tag="$(pastel color "$i" | pastel format name)"
+	trimmed="$(echo "${name[$count]}" | tr -d "*.")"
+	phrase="$(printf "%-15s%-10s%-25s%-10s%-15s%-5s%20b\n" "$trimmed" "|" "$tag" "|" "$hex" "|" "$rgb\n" )"
+	pastel paint "$foreground" --on "$i" "$phrase"
+	((count+=1))
+done
+echo "···································································································"
+
+# Set vim filetype
+# vim: set ft=sh:

@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_lf_tmux
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Start lf on new tmux session.
+#------------------------------------------------------------
+session="lf"
+
+# set up tmux
+tmux -f ~/.config/tmux/.tmux.conf start-server
+
+# create a new tmux session
+tmux -f ~/.config/tmux/.tmux.conf new-session -d -s $session
+
+# Select pane 1
+#tmux selectp -t 1
+tmux send-keys "lf" C-m
+tmux source-file ~/.config/tmux/.tmux.conf 
+$TERMINAL -e tmux attach-session -t $session
+
+# Set vim filetype
+# vim: set ft=sh:

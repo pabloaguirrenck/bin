@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/utils_refreshcmus
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Reefresh cmuus music library
+#------------------------------------------------------------
+
+cmus-remote -C clear
+cmus-remote -C "add /run/media/pabloagnck/2TB/Media/Music/Album"
+cmus-remote -C "update-cache -f"
+
+# Set vim filetype
+# vim: set ft=sh:

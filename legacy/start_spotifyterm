@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_spotifyterm
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open spotify terminal interface  on new tmux session (cava, spotyfi-tui)
+#------------------------------------------------------------
+# Declare session name as variable
+SESS="spt"
+
+# Check weather SESS exists
+tmux has-session -t $SESS 2>/dev/null
+
+# If session exists, kill session, kill spotifyd daemon
+if [ $? == 0 ] ; then
+	tmux kill-session -t $SESS
+	killall "spotifyd"
+
+# Elif session does not exist, create it
+elif [ $? != 0 ] ; then
+	# Kill spotifyd daemon & start spotifyd daemon
+	killall "spotifyd"
+	spotifyd 
+
+	# Set up tmux
+	tmux start-server
+
+	# Create a new tmux session
+	tmux new-session -d -s $SESS
+
+	# Select pane 1
+	tmux selectp -t 1
+	tmux send-keys "cava -p /home/pabloagnck/.config/cava/config" C-m
+
+	# Split pane 1 horizontal by 50%, start spt
+	tmux splitw -f -v -p 50
+	tmux send-keys "spt" C-m
+
+	# Open new st shell, assign class, attach SESS
+	$TERMINAL -c spotifyterm -e tmux attach-session -t $SESS
+fi
+
+# Set vim filetype
+# vim: set ft=sh:

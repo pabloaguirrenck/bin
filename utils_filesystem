@@ -1,0 +1,60 @@
+#!/bin/sh 
+
+#============================================================
+# ~/bin/utils_filesystem
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Display storage stats for every mounted filesystem
+#------------------------------------------------------------
+dR="$(df -h | awk '$6 == "/" { gsub("G", "", $3);printf "%3s%s%s", "R[", $3 "/" $2, "]" }')"
+dH="$(df -h | awk '$6 == "/home" {gsub("G", "", $3);printf "%7s%s%s", "H[", $3 "/" $2, "]" }')"
+d60G="$(df -h | awk '$6 == "/media/pabloagnck/60GB" {gsub("G", "", $3);printf "%7s%s%s", "60G[", $3 "/" $2, "]"}')"
+d750G="$(df -h | awk '$6 == "/media/pabloagnck/750GB" {gsub("G", "", $3);printf "%7s%s%s", "750G[", $3 "/" $2, "]"}')"
+d2T="$(df -h | awk '$6 == "/media/pabloagnck/2TB" {gsub("T", "", $3);printf "%7s%s%s", "LC2T[", $3 "/" $2, "]"}')"
+dWD8I="$(df -h | awk '$6 == "/media/pabloagnck/WD8TI" {gsub("T", "", $3);printf "%7s%s%s", "W8TI[", $3 "/" $2, "]"}')"
+dSG8I="$(df -h | awk '$6 == "/media/pabloagnck/SG8TI" {gsub("T", "", $3);printf "%7s%s%s", "S8TI[", $3 "/" $2, "]"}')"
+
+
+# Declare systems list
+systems="$dR$dH"
+
+# Check weather variable for each removable media is empty
+
+# For 60GB
+if [ "${#d60G}" != 0 ];
+then
+	systems+=" "
+	systems+="$d60G"
+fi
+
+# For 750GB
+if [ "${#d750G}" != 0 ];
+then
+	systems+=" "
+	systems+="$d750G"
+fi
+
+# For 2TB
+if [ "${#d2T}" != 0 ];
+then
+	systems+=" "
+	systems+="$d2T"
+fi
+
+# For WD8TBI
+if [ "${#dWD8I}" != 0 ];
+then
+	systems+=" "
+	systems+="$dWD8I"
+fi
+
+# For SG8TBI
+if [ "${#dSG8I}" != 0 ];
+then
+	systems+=" "
+	systems+="$dSG8I"
+fi
+# Return systems variable to stdout
+echo "$systems"

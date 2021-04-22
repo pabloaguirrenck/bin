@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/start_youtube
+# Pablo Aguirre Núñez
+#============================================================
+
+#------------------------------------------------------------
+# Open youtube on new firefox window
+#------------------------------------------------------------
+google-chrome-stable -new-window 'https://humanpalace.com/wp-admin'
+
+# Set vim filetype
+# vim: set ft=sh:

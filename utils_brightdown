@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#----------------------------------
+# External monitor brightness up
+#----------------------------------
+
+/home/pabloagnck/bin/utils_bright Down

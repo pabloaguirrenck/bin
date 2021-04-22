@@ -1,0 +1,43 @@
+#!/bin/sh
+
+#============================================================
+# ~/bin/utils_cmusnotify
+# Pablo Aguirre Núñez
+#============================================================
+# This is a text annotation test.
+#------------------------------------------------------------
+# Dunst display song notification using cmus-remote util
+#------------------------------------------------------------
+
+# Declare music directory as variable
+musicdir="/run/media/pabloagnck/2TB/Media/Music/Album"
+
+#Kill previous notification if existent
+#killall dunst
+
+# Declare handle
+handle=$(echo cmus-remote -C status)
+
+# Declare song details as vars
+song_title=$($handle | grep "tag title" | sed 's/title/title,,/g' | awk -F ",, " '{print $2}')
+song_artist=$($handle | grep "tag artist" | sed 's/artist/artist,,/g' | awk -F ",, " '{print $2}')
+song_album=$($handle | grep "tag album " | sed 's/album/album,,/g' | awk -F ",, " '{print $2}')
+song_trackno=$($handle | grep "tag tracknumber" | sed 's/tracknumber/tracknumber,,/g' | awk -F ",, " '{print $2}')
+song_duration=$($handle | grep "duration" | sed 's/duration/duration,,/g' | awk -F ",, " '{print $2}')
+song_seconds=$((song_duration%60))
+song_minutes=$((song_duration/60%60))
+duration_clean=$(printf "%02d%s%02d" "$song_minutes" ':' "$song_seconds")
+song_date=$($handle | grep "tag date" | sed 's/date/date,,/g' | awk -F ",, " '{print $2}' | awk -F "-" '{print $1}')
+
+# Generate image previews
+artpath=$($handle | grep "file"| sed 's/file/file,,/g' | awk -F ",, " '{print $2}' | awk -F'/' 'BEGIN { OFS = FS }; NF { NF -= 1 }; 1')
+albuml=$(echo $artpath | awk -F '/' '{print $9}')
+artpathhex="$artpath/$albuml.jpg"
+albumdir=$($handle | grep "file"| sed 's/file/file,,/g' | awk -F ",, " '{print $2}' | awk -F $musicdir '{print $2}')
+echo $artpathhex
+
+# Get total num of tracks on album
+song_totaltrackno=$(find "$artpath" -mindepth 1 -type f -name "*.flac" -printf x | wc -c)
+
+# Notify with html markup
+dunstify -I "$artpathhex" "$song_title" "<span><i>$song_artist\n</i></span><span><i>$song_album\n</i></span><span><b>$song_trackno/$song_totaltrackno</b></span> | <span><b>$song_date</b></span> | <span><b>$duration_clean</b></span>" 

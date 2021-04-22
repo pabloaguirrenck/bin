@@ -1,0 +1,9 @@
+#!/bin/sh
+
+#arr="$(ls *)"
+
+for f in *
+do
+	echo "$f"
+	mkdir "$f AAA"
+done
