@@ -14,7 +14,7 @@ sudo umount /run/media/pabloa/SG8TI
 sleep 1s
 
 echo "Mounting devices..."
-sudo mount -U 8cfa6b57-3ca8-4e55-baae-e6cf6f65d54d /media/pabloagnck/SG8TI
+sudo mount -U 8cfa6b57-3ca8-4e55-baae-e6cf6f65d54d /media/pabloa/SG8TI
 sleep 1s
 
 #------------------------------------------------------------
