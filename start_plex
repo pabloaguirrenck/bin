@@ -10,9 +10,9 @@
 #------------------------------------------------------------
 echo "-----Init Plex Server-----"
 echo "Unmounting devices..."
-sudo umount /run/media/pabloagnck/WD8TI
+sudo umount /run/media/pabloa/WD8TI
 sleep 1s
-sudo umount /run/media/pabloagnck/SG8TI
+sudo umount /run/media/pabloa/SG8TI
 sleep 1s
 
 echo "Mounting devices..."

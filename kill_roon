@@ -53,7 +53,7 @@ echo "Metadata Unmounted"
 # Unmount Devices
 #------------------------------------------------------------
 echo "Unmounting Devices"
-sudo umount /media/pabloa/SG8TI
+sudo umount /media/pabloagnck/SG8TI
 sleep 1s
 echo "Done..."
 
