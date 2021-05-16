@@ -10,9 +10,9 @@
 #------------------------------------------------------------
 echo "-----Init Music Server-----"
 echo "Unmounting devices..."
-umount /run/media/pabloagnck/WD8TI
+umount /run/media/pabloa/WD8TI
 sleep 1s
-umount /run/media/pabloagnck/SG8TI
+umount /run/media/pabloa/SG8TI
 sleep 1s
 
 echo "Mounting devices..."
