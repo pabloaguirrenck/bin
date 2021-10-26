@@ -1,0 +1,5 @@
+#!/bin/sh
+
+sudo umount -t nfs /media/pabloagnck/QNAP/Media
+sudo umount -t nfs /media/pabloagnck/QNAP/Personal
+
