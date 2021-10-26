@@ -1,0 +1,6 @@
+#!/bin/sh
+
+/usr/bin/pycharm & disown
+
+PPPID=$(awk '{print $4}' "/proc/$PPID/stat")
+kill $PPID
